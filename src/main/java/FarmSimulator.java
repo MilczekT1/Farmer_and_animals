@@ -23,7 +23,7 @@ public final class FarmSimulator {
     }
     
     public FarmSimulator() {
-        farm = new Farm("Farma 1");
+        farm = new Farm("Farm 1");
     }
     
     private void runInConsole(FarmSimulator simulator){
@@ -33,7 +33,7 @@ public final class FarmSimulator {
         
         simulator.printMenu();
         do {
-            Integer choice = getIntegerWithRegex(in,"Wybór: ","\\d*");
+            Integer choice = getIntegerWithRegex(in,"Choice: ","\\d*");
             
             switch (choice){
                 case 0:     farm.saveFarm();
@@ -49,7 +49,7 @@ public final class FarmSimulator {
                 case 8:   simulator.menu_showBarnWithMaxAnimals(farm);            break;
                 case 9:   simulator.menu_showAllVaccinedAnimals(farm);            break;
                     
-                default :   System.out.println("Wybierz ponownie");               break;
+                default :   System.out.println("Choose again");               break;
             }
             
             printAnimalSummary(farm);
@@ -61,7 +61,7 @@ public final class FarmSimulator {
             return in.readLine();
         }
         catch(IOException exc){
-            System.out.println("Bledne dane, sprobuj ponownie");
+            System.out.println("Wrong data, try again");
             return null;
         }
     }
@@ -89,7 +89,7 @@ public final class FarmSimulator {
                 }
             }
             else{
-                System.out.println("puste");
+                System.out.println("empty");
             }
         }
         System.out.println("---------");
@@ -97,15 +97,15 @@ public final class FarmSimulator {
     private void printMenu(){
         System.out.println("Menu");
         System.out.println("0 - Koniec");
-        System.out.println("1 - Dodaj stodolę");
-        System.out.println("2 - Usuń stodole");
-        System.out.println("3 - Dodaj zwierzę do stodoly");
-        System.out.println("4 - Usuń zwierzę ze stodoly");
-        System.out.println("5 - Pokaz 5 najstarszych zwierząt");
-        System.out.println("6 - Pokaz 5 najmlodszych zwierząt");
-        System.out.println("7 - Pokaz najliczniejszy gatunek");
-        System.out.println("8 - Pokaz Stodole z najwieksza iloscia zwierzat");
-        System.out.println("9 - Pokaż wszystkie zaszczepione zwierzęta");
+        System.out.println("1 - Add barn");
+        System.out.println("2 - Remove barn");
+        System.out.println("3 - Add animal to barn");
+        System.out.println("4 - Remove animal from barn");
+        System.out.println("5 - Show 5 the oldest animals");
+        System.out.println("6 - Show 5 the youngest animals");
+        System.out.println("7 - Show the most numerous species");
+        System.out.println("8 - Show barn with the most animals");
+        System.out.println("9 - Show every vaccinated animals");
     }
     private void printAnimalSummary(Farm farm){
         Map<String, Integer> allAnimals = farm.getAllAnimals();
@@ -113,7 +113,7 @@ public final class FarmSimulator {
             System.out.println("\n" + allAnimals);
         }
         else{
-            System.out.println("Liczba zwierzat: 0");
+            System.out.println("Animals amount: 0");
         }
     }
     
@@ -135,13 +135,13 @@ public final class FarmSimulator {
     }
     
     private void menu_addBarnToFarm(Farm farm, BufferedReader inL){
-        String barnName = getStringWithRegex(inL,"Nazwa stodoly: ","\\D*\\d{0,4}");
-        Integer capacity = getIntegerWithRegex(inL,"Pojemnosc stodoly: ","\\d{1,}");
+        String barnName = getStringWithRegex(inL,"Barn name: ","\\D*\\d{0,4}");
+        Integer capacity = getIntegerWithRegex(inL,"Barn capacity: ","\\d{1,}");
         farm.addBarn(new Barn(barnName, capacity));
     }
     private void menu_removeBarnFromFarm(Farm farm, BufferedReader inL){
-        String barnName = getStringWithRegex(inL,"Nazwa stodoly: ","\\D*\\d{0,4}");
-        Integer capacity = getIntegerWithRegex(inL,"Pojemnosc stodoly: ","\\d{1,}");
+        String barnName = getStringWithRegex(inL,"Barn name: ","\\D*\\d{0,4}");
+        Integer capacity = getIntegerWithRegex(inL,"Barn capacity: ","\\d{1,}");
         farm.removeBarn(barnName, capacity);
     }
     
@@ -149,15 +149,15 @@ public final class FarmSimulator {
         if (farm.getBarnsAmount() > 0) {
             printAllBarns(farm.getBarns());
     
-            String species = getStringWithRegex(inL,"Gatunek: ","\\D*").toLowerCase();
-            Integer ageInMonths = getIntegerWithRegex(inL,"Wiek a miesiacach: ","\\d{1,3}");
-            Integer weight = getIntegerWithRegex(inL,"Waga (Kg): ","\\d{1,4}");
-            String barnName = getStringWithRegex(inL,"Do jakiej stodoly: ","\\D*\\d{0,4}");
+            String species = getStringWithRegex(inL,"Species: ","\\D*").toLowerCase();
+            Integer ageInMonths = getIntegerWithRegex(inL,"Age in months: ","\\d{1,3}");
+            Integer weight = getIntegerWithRegex(inL,"Weight (Kg): ","\\d{1,4}");
+            String barnName = getStringWithRegex(inL,"Into Barn: ","\\D*\\d{0,4}");
     
-            Integer genderINT = getIntegerWithRegex(inL,"Plec (0-samica 1-samiec): ","[0-1]");
-            String gender = (genderINT.equals(0)) ? "samica" : "samiec";
+            Integer genderINT = getIntegerWithRegex(inL,"Gender (0/1 female/male): ","[0-1]");
+            String gender = (genderINT.equals(0)) ? "female" : "male";
             
-            Integer vaccineINT = getIntegerWithRegex(inL,"Czy szczepiony (0-false 1-true): ","[0-1]");
+            Integer vaccineINT = getIntegerWithRegex(inL,"Is vaccinated (1/0 true/false): ","[0-1]");
             boolean vaccined = (vaccineINT.equals(0)) ? false : true;
 
             ArrayList<Barn> barns = farm.getBarns();
@@ -168,25 +168,25 @@ public final class FarmSimulator {
                 barns.get(index).addAnimal(new Animal(species, ageInMonths, gender, weight, vaccined, barnID, barnName));
             }
             else{
-                System.out.println("Brak stodoly, nie mozna umiescic zwierzecia.");
+                System.out.println("There is no such barn, can't put animal.");
             }
         }else{
-            System.out.println("Brak stodoly, nie mozna umiescic zwierzecia.");
+            System.out.println("No barns, first add some barns!.");
         }
     }
     private void menu_removeAnimalFromBarn(Farm farm, BufferedReader inL){
         if (farm.getBarnsAmount() >0){
             printAllBarns(farm.getBarns());
     
-            String species = getStringWithRegex(inL,"Gatunek: ","\\D*").toLowerCase();
-            Integer ageInMonths = getIntegerWithRegex(inL,"Wiek a miesiacach: ","\\d{1,3}");
-            Integer weight = getIntegerWithRegex(inL,"Waga (Kg): ","\\d{1,4}");
-            String barnName = getStringWithRegex(inL,"Do jakiej stodoly: ","\\D*\\d{0,4}");
+            String species = getStringWithRegex(inL,"Species: ","\\D*").toLowerCase();
+            Integer ageInMonths = getIntegerWithRegex(inL,"Age in months: ","\\d{1,3}");
+            Integer weight = getIntegerWithRegex(inL,"Weight (Kg): ","\\d{1,4}");
+            String barnName = getStringWithRegex(inL,"Into Barn: ","\\D*\\d{0,4}");
     
-            Integer genderINT = getIntegerWithRegex(inL,"Plec (0-samica 1-samiec): ","[0-1]");
-            String gender = (genderINT.equals(0)) ? "samica" : "samiec";
+            Integer genderINT = getIntegerWithRegex(inL,"Gender (0/1 female/male): ","[0-1]");
+            String gender = (genderINT.equals(0)) ? "female" : "male";
     
-            Integer vaccineINT = getIntegerWithRegex(inL,"Czy szczepiony (0-false 1-true): ","[0-1]");
+            Integer vaccineINT = getIntegerWithRegex(inL,"Is vaccinated (1/0 true/false): ","[0-1]");
             boolean vaccined = (vaccineINT.equals(0)) ? false : true;
             
             ArrayList<Barn> barns = farm.getBarns();
@@ -197,11 +197,11 @@ public final class FarmSimulator {
                 barns.get(index).removeAnimal(new Animal(species, ageInMonths, gender, weight, vaccined, barnID, barnName));
             }
             else{
-                System.out.println("Brak stodoly z której można by usunąć zwierzę.");
+                System.out.println("There is no such barn.");
             }
         }
         else{
-            System.out.println("Brak stodoly z której można by usunąć zwierzę.");
+            System.out.println("No barn to remove animals from.");
         }
         
     }
@@ -223,7 +223,7 @@ public final class FarmSimulator {
             });
             
             if (oldest.size() > 0) {
-                System.out.println("Najstarsze zwierzeta:\n");
+                System.out.println("The oldest animals:\n");
                 int end = (oldest.size() < 5 ) ? oldest.size() : 5;
                 for (int i = 0; i < end; i++) {
                     System.out.println(oldest.remove(0).showAnimal());
@@ -232,7 +232,7 @@ public final class FarmSimulator {
             
         }
         else{
-            System.out.println("Farma bez stodol!");
+            System.out.println("Farmwithout barns!");
         }
     }
     private void menu_show_5_YoungestAnimals(Farm farm){
@@ -252,7 +252,7 @@ public final class FarmSimulator {
             });
             
             if (youngest.size() > 0) {
-                System.out.println("Najmlodsze zwierzeta:\n");
+                System.out.println("The youngest animals:\n");
                 int end = (youngest.size() < 5 ) ? youngest.size() : 5;
                 for (int i = 0; i < end; i++) {
                     System.out.println(youngest.remove(0).showAnimal());
@@ -261,7 +261,7 @@ public final class FarmSimulator {
         
         }
         else{
-            System.out.println("Farma bez stodol!");
+            System.out.println("Farm without barns!");
         }
     }
     
@@ -277,10 +277,10 @@ public final class FarmSimulator {
             }
         }
         if (!result.equals("")){
-            System.out.println("Najliczniejszy gatunek: " + result + ": " + max);
+            System.out.println("The most numerous species: " + result + ": " + max);
         }
         else{
-            System.out.println("Blad - brak zwierzat");
+            System.out.println("Mistake - there are no animals");
         }
     }
     private void menu_showBarnWithMaxAnimals(Farm farm){
@@ -294,10 +294,10 @@ public final class FarmSimulator {
                     result = barn;
                 }
             }
-            System.out.println("Stodola z najwieksza iloscia zwierząt:\n" + result.toString());
+            System.out.println("The barn with the most animals:\n" + result.toString());
         }
         else{
-            System.out.println("brak stodol");
+            System.out.println("No barns!");
         }
     }
     private void menu_showAllVaccinedAnimals(Farm farm){
@@ -310,9 +310,9 @@ public final class FarmSimulator {
                 vaccined.addAll(vacAnimals);
             }
         }
-        System.out.println("zaszczepionych zwierzat: " + vaccined.size());
+        System.out.println("Vaccinated animals: " + vaccined.size());
         for (Animal animal: vaccined){
-            System.out.println(animal.toString());
+            System.out.println(animal.showAnimal());
         }
     }
 }
