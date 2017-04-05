@@ -6,11 +6,11 @@ public class Animal implements Serializable {
     static final long serialVersionUID = -8776502104304959804L;
     
     private String species;
-    private int ageInMonths;
     private String gender;
+    private String barnName;
+    private int ageInMonths;
     private int weightInKG;
     private int barnID;
-    private String barnName;
     private boolean isVaccinated;
     
     public Animal() {
@@ -33,7 +33,7 @@ public class Animal implements Serializable {
     }
     
     public String showAnimal(){
-        String vaccine = this.isVaccinated() ? "szczepiony" : "nie szczepiony";
-        return getSpecies() + " | " + getGender() + " | waga " + weightInKG + " kg | "+ getAgeInMonths()/12 + " lat " + getAgeInMonths()%12 + " miesiecy | w stodole o nazwie: " + getBarnName() + " | " + vaccine;
+        String vaccine = this.isVaccinated() ? "vaccinated" : "not vaccinated";
+        return getSpecies() + " | " + getGender() + " | weight " + weightInKG + " kg | "+ getAgeInMonths()/12 + " years " + getAgeInMonths()%12 + " months | in barn with name: " + getBarnName() + " | " + vaccine;
     }
 }

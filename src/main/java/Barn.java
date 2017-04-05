@@ -38,7 +38,7 @@ public final class Barn implements Serializable {
         Animal theOldest = new Animal();
     
         if (animalsAmount == 0) {
-            System.out.println("Blad, stodola jest pusta!");
+            System.out.println("Mistake! Barn is empty!");
         }
         else {
             for (Animal animal : animalsInBarn) {
@@ -54,7 +54,7 @@ public final class Barn implements Serializable {
         int minAge=Integer.MAX_VALUE;
         Animal theYoungest = new Animal();
         if (animalsAmount == 0) {
-            System.out.println("Blad, stodola jest pusta!");
+            System.out.println("Mistake! Barn is empty!");
         }
         else {
             for (Animal animal : animalsInBarn) {
@@ -69,7 +69,7 @@ public final class Barn implements Serializable {
     
     public void addAnimal(Animal animal){
         if (isFull()){
-            System.out.println("Stodola jest pelna. Dodaj zwierzę do innej stodoly");
+            System.out.println("Mistake! Barn is empty!. Add animal to different barn");
         }
         else{
             animalsInBarn.add(animal);
@@ -87,7 +87,7 @@ public final class Barn implements Serializable {
             animalsAmount--;
         }
         else{
-            System.out.println("Brak takiego zwierzęcia w stodole.");
+            System.out.println("There is no such animal in this barn.");
         }
     }
     
