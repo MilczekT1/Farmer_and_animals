@@ -1,9 +1,11 @@
+import lombok.Data;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Data
 public final class Barn implements Serializable {
     private static final long serialVersionUID = 9081580776763231710L;
     
@@ -25,6 +27,10 @@ public final class Barn implements Serializable {
         setCapacity(capacity);
         setAnimalsAmount(0);
         this.animalsInBarn = new ArrayList<>();
+    }
+    
+    public boolean isFull(){
+        return animalsInBarn.size() == capacity ? true : false ;
     }
     
     public Animal getTheOldest(){
@@ -74,16 +80,7 @@ public final class Barn implements Serializable {
         animalsInBarn.addAll(listOfAnimals);
         animalsAmount += listOfAnimals.size();
     }
-    public void removeAnimal(String species,String gender, int ageInMonths, int weightInKG){
-        Animal animal = new Animal (species, ageInMonths,gender,weightInKG,false, barnID);
-        if (animalsInBarn.contains(animal)){
-            animalsInBarn.remove(animal);
-            animalsAmount--;
-        }
-        else{
-            System.out.println("Brak takiego zwierzęcia w stodole.");
-        }
-    }
+    
     public void removeAnimal(Animal animal){
         if (animalsInBarn.contains(animal)){
             animalsInBarn.remove(animal);
@@ -110,39 +107,6 @@ public final class Barn implements Serializable {
         }
         return animals;
     }
-    
-    public boolean isFull(){
-        return animalsInBarn.size() == capacity ? true : false ;
-    }
-    
-    public String getName() {
-        return name;
-    }
-    private void setName(String name) {
-        this.name = name;
-    }
-    
-    public int getBarnID() {
-        return barnID;
-    }
-    public void setBarnID(int barnID) {
-        this.barnID = barnID;
-    }
-    
-    public int getCapacity() {
-        return capacity;
-    }
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-    
-    public int getAnimalsAmount() {
-        return animalsAmount;
-    }
-    public void setAnimalsAmount(int animalsAmount) {
-        this.animalsAmount = animalsAmount;
-    }
-    
     public ArrayList<Animal> getAllVaccined(){
         ArrayList<Animal> vaccined = new ArrayList<>();
         for (Animal animal : animalsInBarn){
@@ -152,21 +116,8 @@ public final class Barn implements Serializable {
         }
         return vaccined;
     }
-    public ArrayList<Animal> getAnimalsInBarn() {
-        return animalsInBarn;
-    }
-    
-    public void setAnimalsInBarn(ArrayList<Animal> animalsInBarn) {
-        this.animalsInBarn = animalsInBarn;
-    }
     
     @Override
-    public String toString() {
-        return "Barn{" + "Nazwa=" + getName() + ", ID=" + barnID + ", Pojemnosc=" + capacity + ", LiczbaZwierzat=" + animalsAmount + ", ZwierzetaWStodole=" + animalsInBarn + '}';
-    }
-    
-    @Override
-    
     public boolean equals(Object o) {
         //every barn is unique at it's farm, identified by it's name.
         if (this == o)
@@ -178,7 +129,6 @@ public final class Barn implements Serializable {
     
         return getName().equals(barn.getName());
     }
-    
     @Override
     public int hashCode() {
         return getName().hashCode();
