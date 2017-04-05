@@ -6,6 +6,8 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.regex.Pattern;
 
+//TODO: repair loaded data after new class version ( nulls - Serialization)
+
 public final class FarmSimulator {
     
     private static boolean CONSOLE_MODE = true;
@@ -163,7 +165,7 @@ public final class FarmSimulator {
             if (barns.contains(tempBarn)) {
                 int index = barns.indexOf(tempBarn);
                 int barnID = barns.get(index).getBarnID();
-                barns.get(index).addAnimal(new Animal(species, ageInMonths, gender, weight, vaccined, barnID));
+                barns.get(index).addAnimal(new Animal(species, ageInMonths, gender, weight, vaccined, barnID, barnName));
             }
             else{
                 System.out.println("Brak stodoly, nie mozna umiescic zwierzecia.");
@@ -189,11 +191,10 @@ public final class FarmSimulator {
             
             ArrayList<Barn> barns = farm.getBarns();
             Barn tempBarn = new Barn(barnName);
-            if(farm.getBarns().contains(new Barn(barnName)))
             if (barns.contains(tempBarn)) {
                 int index = barns.indexOf(tempBarn);
                 int barnID = barns.get(index).getBarnID();
-                barns.get(index).removeAnimal(new Animal(species, ageInMonths, gender, weight, vaccined, barnID));
+                barns.get(index).removeAnimal(new Animal(species, ageInMonths, gender, weight, vaccined, barnID, barnName));
             }
             else{
                 System.out.println("Brak stodoly z której można by usunąć zwierzę.");
