@@ -7,6 +7,7 @@ import java.util.*;
 @Data
 public final class Farm implements Serializable {
     private static final long serialVersionUID = 6071520850077189150L;
+    
     private String farmID;
     private int barnsAmount;
     private ArrayList<Barn> barns;
@@ -42,7 +43,7 @@ public final class Farm implements Serializable {
         
         Integer value;
         for (Map<String,Integer> barnAnimals : maplist){
-            if (barnAnimals.equals(animals)){
+            if (barnAnimals.isEmpty()){
                 continue;
             }
             else{
@@ -66,7 +67,7 @@ public final class Farm implements Serializable {
             barnsAmount++;
         }
         else{
-            System.out.println("Nie podano unikalnej nazwy stodoly!");
+            System.out.println("You didn't provide unique barn name!");
         }
     }
     
@@ -76,7 +77,7 @@ public final class Farm implements Serializable {
             barnsAmount--;
         }
         else{
-            System.out.println("Nie ma takiej stodoly.");
+            System.out.println("There is no such barn");
         }
     }
     public void removeBarn(String name, int capacity){
@@ -86,7 +87,7 @@ public final class Farm implements Serializable {
             barnsAmount--;
         }
         else{
-            System.out.println("Nie ma takiej stodoly.");
+            System.out.println("There is no such barn");
         }
     }
     
