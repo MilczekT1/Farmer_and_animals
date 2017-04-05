@@ -33,9 +33,4 @@ public class Animal implements Serializable {
         String vaccine = this.isVaccinated() ? "szczepiony" : "nie szczepiony";
         return getSpecies() + " | " + getGender() + " | waga " + weightInKG + " kg | "+ getAgeInMonths()/12 + " lat " + getAgeInMonths()%12 + " miesiecy | w stodole o ID: " + getBarnID() + " | " + vaccine;
     }
-    
-    @Override
-    public String toString() {
-        return "Animal{" + "species='" + species + '\'' + ", ageInMonths=" + ageInMonths + ", gender='" + gender + '\'' + ", weightInKG=" + weightInKG + ", barnID=" + barnID + ", isVaccinated=" + isVaccinated + '}';
-    }
 }

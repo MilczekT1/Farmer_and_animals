@@ -225,7 +225,7 @@ public final class FarmSimulator {
                 System.out.println("Najstarsze zwierzeta:\n");
                 int end = (oldest.size() < 5 ) ? oldest.size() : 5;
                 for (int i = 0; i < end; i++) {
-                    System.out.println(oldest.remove(0).toString());
+                    System.out.println(oldest.remove(0).showAnimal());
                 }
             }
             
@@ -254,7 +254,7 @@ public final class FarmSimulator {
                 System.out.println("Najmlodsze zwierzeta:\n");
                 int end = (youngest.size() < 5 ) ? youngest.size() : 5;
                 for (int i = 0; i < end; i++) {
-                    System.out.println(youngest.remove(0).toString());
+                    System.out.println(youngest.remove(0).showAnimal());
                 }
             }
         
