@@ -5,8 +5,7 @@ import java.util.*;
 
 public final class Farm implements Serializable {
     private static final long serialVersionUID = 6071520850077189150L;
-    
-    public String farmID;
+    private String farmID;
     private int barnsAmount;
     private ArrayList<Barn> barns;
     
@@ -21,7 +20,7 @@ public final class Farm implements Serializable {
         this.farmID = f.getFarmID();
     }
     
-    public int getFarmAnimalsAmount(){
+    public int getAllAnimalsAmount(){
         int amount = 0;
         for (Barn barn : barns){
             amount += barn.getAnimalsAmount();
@@ -59,6 +58,16 @@ public final class Farm implements Serializable {
         return animals;
     }
     
+    public void addBarn(Barn barn){
+        if (!barns.contains(barn)) {
+            barns.add(barn);
+            barnsAmount++;
+        }
+        else{
+            System.out.println("Nie podano unikalnej nazwy stodoly!");
+        }
+    }
+    
     public void removeBarn(Barn barn){
         if (barns.contains(barn)){
             barns.remove(barn);
@@ -76,15 +85,6 @@ public final class Farm implements Serializable {
         }
         else{
             System.out.println("Nie ma takiej stodoly.");
-        }
-    }
-    public void addBarn(Barn barn){
-        if (!barns.contains(barn)) {
-            barns.add(barn);
-            barnsAmount++;
-        }
-        else{
-            System.out.println("Nie podano unikalnej nazwy stodoly!");
         }
     }
     
