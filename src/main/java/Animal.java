@@ -10,6 +10,7 @@ public class Animal implements Serializable {
     private String gender;
     private int weightInKG;
     private int barnID;
+    private String barnName;
     private boolean isVaccinated;
     
     public Animal() {
@@ -18,19 +19,21 @@ public class Animal implements Serializable {
         setGender(null);
         setWeightInKG(0);
         setBarnID(-1);
+        setBarnName("youngWildAndFree");
         setVaccinated(false);
     }
-    public Animal(String species, int ageInMonths, String gender, int weightInKG, boolean vaccinated, int barnID) {
+    public Animal(String species, int ageInMonths, String gender, int weightInKG, boolean vaccinated, int barnID, String barnName) {
         setSpecies(species);
         setAgeInMonths(ageInMonths);
         setGender(gender);
         setWeightInKG(weightInKG);
         setBarnID(barnID);
+        setBarnName(barnName);
         setVaccinated(vaccinated);
     }
     
     public String showAnimal(){
         String vaccine = this.isVaccinated() ? "szczepiony" : "nie szczepiony";
-        return getSpecies() + " | " + getGender() + " | waga " + weightInKG + " kg | "+ getAgeInMonths()/12 + " lat " + getAgeInMonths()%12 + " miesiecy | w stodole o ID: " + getBarnID() + " | " + vaccine;
+        return getSpecies() + " | " + getGender() + " | waga " + weightInKG + " kg | "+ getAgeInMonths()/12 + " lat " + getAgeInMonths()%12 + " miesiecy | w stodole o nazwie: " + getBarnName() + " | " + vaccine;
     }
 }
