@@ -1,8 +1,10 @@
+import lombok.Data;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.*;
 
+@Data
 public final class Farm implements Serializable {
     private static final long serialVersionUID = 6071520850077189150L;
     private String farmID;
@@ -88,17 +90,6 @@ public final class Farm implements Serializable {
         }
     }
     
-    
-    public String getFarmID() {
-        return farmID;
-    }
-    public int getBarnsAmount() {
-        return barnsAmount;
-    }
-    public ArrayList<Barn> getBarns() {
-        return barns;
-    }
-    
     public void saveFarm(){
         writeObject();
         
@@ -163,11 +154,6 @@ public final class Farm implements Serializable {
     }
     
     @Override
-    public String toString() {
-        return "Farma { " + "ID=" + farmID + ", Liczba_Stodól= " + barnsAmount + ", barns=" + barns + '}';
-    }
-    
-    @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
@@ -178,7 +164,6 @@ public final class Farm implements Serializable {
     
         return getFarmID().equals(farm.getFarmID());
     }
-    
     @Override
     public int hashCode() {
         return getFarmID().hashCode();
