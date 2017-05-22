@@ -215,12 +215,7 @@ public final class FarmSimulator {
                 oldest.addAll(barn.getAnimalsInBarn());
             }
             
-            Collections.sort(oldest, new Comparator<Animal>() {
-                @Override
-                public int compare(Animal o1, Animal o2) {
-                    return o2.getAgeInMonths()-o1.getAgeInMonths();
-                }
-            });
+            Collections.sort(oldest, (o1, o2) -> o2.getAgeInMonths()-o1.getAgeInMonths());
             
             if (oldest.size() > 0) {
                 System.out.println("The oldest animals:\n");
@@ -229,10 +224,9 @@ public final class FarmSimulator {
                     System.out.println(oldest.remove(0).showAnimal());
                 }
             }
-            
         }
         else{
-            System.out.println("Farmwithout barns!");
+            System.out.println("Farm without barns!");
         }
     }
     private void menu_show_5_YoungestAnimals(Farm farm){
@@ -243,13 +237,7 @@ public final class FarmSimulator {
             for (Barn barn : farm.getBarns()){
                 youngest.addAll(barn.getAnimalsInBarn());
             }
-        
-            Collections.sort(youngest, new Comparator<Animal>() {
-                @Override
-                public int compare(Animal o1, Animal o2) {
-                    return o1.getAgeInMonths()-o2.getAgeInMonths();
-                }
-            });
+            Collections.sort(youngest,(o1,o2) ->o1.getAgeInMonths()-o2.getAgeInMonths());
             
             if (youngest.size() > 0) {
                 System.out.println("The youngest animals:\n");
