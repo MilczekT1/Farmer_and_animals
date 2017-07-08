@@ -29,4 +29,48 @@ public class TestBarn {
             Assert.fail("IllegalArgumentException has not been thrown");
         } catch (Exception e) { ; }
     }
+    
+    @Test
+    public void test2ArgConstructor(){
+        // Correct arguments
+        try {
+            barn = new Barn("ChickenLand",500);
+        } catch (Exception e) {
+            Assert.fail("IllegalArgumentException has been thrown");
+        }
+        
+        //Incorrect argument
+        try {
+            barn = new Barn(null,500);
+            Assert.fail("IllegalArgumentException has not been thrown");
+        } catch (Exception e) { ; }
+        try {
+            barn = new Barn("",500);
+            Assert.fail("IllegalArgumentException has not been thrown");
+        } catch (Exception e) { ; }
+    
+        try {
+            barn = new Barn("ChickenLand",0);
+            Assert.fail("IllegalArgumentException has not been thrown");
+        } catch (Exception e) { ; }
+    
+        try {
+            barn = new Barn("ChickenLand",-1);
+            Assert.fail("IllegalArgumentException has not been thrown");
+        } catch (Exception e) { ; }
+    }
+    @Test
+    public void testIsFull(){
+        // Correct
+        try {
+            barn = new Barn("testBarn",2);
+        } catch (Exception e) {
+            Assert.fail("IllegalArgumentException has been thrown");
+        }
+        Assert.assertFalse(barn.isFull());
+        barn.addAnimal(new Animal());
+        Assert.assertFalse(barn.isFull());
+        barn.addAnimal(new Animal());
+        Assert.assertTrue(barn.isFull());
+    }
 }
