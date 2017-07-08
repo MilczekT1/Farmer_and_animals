@@ -2,7 +2,7 @@ import lombok.Data;
 import java.io.*;
 
 @Data
-public class Animal implements Serializable {
+final class Animal implements Serializable {
     static final long serialVersionUID = -8776502104304959804L;
     
     private String species;
@@ -17,19 +17,24 @@ public class Animal implements Serializable {
         setSpecies(null);
         setAgeInMonths(-1);
         setGender(null);
-        setWeightInKG(0);
+        setWeightInKG(-1);
         setBarnID(-1);
-        setBarnName("youngWildAndFree");
+        setBarnName(null);
         setVaccinated(false);
     }
-    public Animal(String species, int ageInMonths, String gender, int weightInKG, boolean vaccinated, int barnID, String barnName) {
-        setSpecies(species);
-        setAgeInMonths(ageInMonths);
-        setGender(gender);
-        setWeightInKG(weightInKG);
-        setBarnID(barnID);
-        setBarnName(barnName);
-        setVaccinated(vaccinated);
+    public Animal(String species, int ageInMonths, String gender, int weightInKG, boolean vaccinated, int barnID, String barnName) throws IllegalArgumentException{
+        if (species != null && gender != null && barnName != null &&
+                    ageInMonths > 0 && weightInKG > 0 && barnID > 0) {
+            setSpecies(species);
+            setAgeInMonths(ageInMonths);
+            setGender(gender);
+            setWeightInKG(weightInKG);
+            setBarnID(barnID);
+            setBarnName(barnName);
+            setVaccinated(vaccinated);
+        } else {
+            throw new IllegalArgumentException("Illegal arguments in constructor");
+        }
     }
     
     public String showAnimal(){
