@@ -17,7 +17,7 @@ final class Barn implements Serializable {
     private ArrayList<Animal> animalsInBarn;
     
     public Barn(String name) throws Exception {
-        if (name.trim() != null && name.trim() != "") {
+        if (name != null && name.trim() != "") {
             setName(name);
             setAnimalsAmount(-1);
             setCapacity(-1);
@@ -27,12 +27,17 @@ final class Barn implements Serializable {
             throw new IllegalArgumentException("Invalid data in Barn constructor");
         }
     }
-    public Barn(String name, int capacity) {
-        setName(name);
-        setBarnID(++barnCounter);
-        setCapacity(capacity);
-        setAnimalsAmount(0);
-        this.animalsInBarn = new ArrayList<>();
+    public Barn(String name, int capacity) throws Exception {
+        if (name != null & name.trim() != "" && capacity > 0) {
+            setName(name);
+            setBarnID(++barnCounter);
+            setCapacity(capacity);
+            setAnimalsAmount(0);
+            this.animalsInBarn = new ArrayList<>();
+        }
+        else{
+            throw new IllegalArgumentException("Invalid data in Barn constructor");
+        }
     }
     
     public boolean isFull(){
