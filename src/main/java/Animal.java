@@ -28,7 +28,7 @@ final class Animal implements Serializable {
         if (species != null && gender != null && barnName != null &&
                     ageInMonths > 0 && weightInKG > 0 && barnID > 0 &&
                     Pattern.matches("male|female",gender) &&
-                    barnName != "" && species != "") {
+                    barnName.trim() != "" && species.trim() != "") {
             
             setSpecies(species);
             setAgeInMonths(ageInMonths);
