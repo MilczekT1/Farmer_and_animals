@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-public final class Barn implements Serializable {
+final class Barn implements Serializable {
     private static final long serialVersionUID = 9081580776763231710L;
     
     private static int barnCounter = 0;
@@ -16,10 +16,16 @@ public final class Barn implements Serializable {
     private int animalsAmount;
     private ArrayList<Animal> animalsInBarn;
     
-    public Barn(String name) {
-        setName(name);
-        setAnimalsAmount(0);
-        this.animalsInBarn = new ArrayList<>();
+    public Barn(String name) throws Exception {
+        if (name.trim() != null && name.trim() != "") {
+            setName(name);
+            setAnimalsAmount(-1);
+            setCapacity(-1);
+            setBarnID(-1);
+            animalsInBarn = null;
+        } else{
+            throw new IllegalArgumentException("Invalid data in Barn constructor");
+        }
     }
     public Barn(String name, int capacity) {
         setName(name);

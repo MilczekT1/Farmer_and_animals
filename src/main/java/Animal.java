@@ -1,5 +1,7 @@
 import lombok.Data;
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Data
 final class Animal implements Serializable {
@@ -22,9 +24,12 @@ final class Animal implements Serializable {
         setBarnName(null);
         setVaccinated(false);
     }
-    public Animal(String species, int ageInMonths, String gender, int weightInKG, boolean vaccinated, int barnID, String barnName) throws IllegalArgumentException{
+    public Animal(String species, int ageInMonths, String gender, int weightInKG, boolean vaccinated, int barnID, String barnName) throws Exception{
         if (species != null && gender != null && barnName != null &&
-                    ageInMonths > 0 && weightInKG > 0 && barnID > 0) {
+                    ageInMonths > 0 && weightInKG > 0 && barnID > 0 &&
+                    Pattern.matches("male|female",gender) &&
+                    barnName != "") {
+            
             setSpecies(species);
             setAgeInMonths(ageInMonths);
             setGender(gender);

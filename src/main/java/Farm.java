@@ -5,7 +5,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 @Data
-public final class Farm implements Serializable {
+final class Farm implements Serializable {
     private static final long serialVersionUID = 6071520850077189150L;
     
     private String farmID;

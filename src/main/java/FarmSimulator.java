@@ -34,24 +34,49 @@ public final class FarmSimulator {
         simulator.printMenu();
         do {
             Integer choice = getIntegerWithRegex(in,"Choice: ","\\d*");
-            
-            switch (choice){
-                case 0:     farm.saveFarm();
-                            System.exit(0); break;
-                
-                case 1:   simulator.menu_addBarnToFarm(farm, in);                 break;
-                case 2:   simulator.menu_removeBarnFromFarm(farm, in);            break;
-                case 3:   simulator.menu_addAnimalToBarn(farm,in);                break;
-                case 4:   simulator.menu_removeAnimalFromBarn(farm,in);           break;
-                case 5:   simulator.menu_show_5_OldestAnimals(farm);              break;
-                case 6:   simulator.menu_show_5_YoungestAnimals(farm);            break;
-                case 7:   simulator.menu_showTheMostNumerousAnimal(farm);         break;
-                case 8:   simulator.menu_showBarnWithMaxAnimals(farm);            break;
-                case 9:   simulator.menu_showAllVaccinedAnimals(farm);            break;
-                    
-                default :   System.out.println("Choose again");               break;
+            try {
+                switch (choice) {
+                    case 0:
+                        farm.saveFarm();
+                        System.exit(0);
+                        break;
+        
+                    case 1:
+                        simulator.menu_addBarnToFarm(farm, in);
+                        break;
+                    case 2:
+                        simulator.menu_removeBarnFromFarm(farm, in);
+                        break;
+                    case 3:
+                        simulator.menu_addAnimalToBarn(farm, in);
+                        break;
+                    case 4:
+                        simulator.menu_removeAnimalFromBarn(farm, in);
+                        break;
+                    case 5:
+                        simulator.menu_show_5_OldestAnimals(farm);
+                        break;
+                    case 6:
+                        simulator.menu_show_5_YoungestAnimals(farm);
+                        break;
+                    case 7:
+                        simulator.menu_showTheMostNumerousAnimal(farm);
+                        break;
+                    case 8:
+                        simulator.menu_showBarnWithMaxAnimals(farm);
+                        break;
+                    case 9:
+                        simulator.menu_showAllVaccinedAnimals(farm);
+                        break;
+        
+                    default:
+                        System.out.println("Choose again");
+                        break;
+                }
+            } catch(Exception e){
+                if (e instanceof IllegalArgumentException)
+                    System.err.println("Illegal input");
             }
-            
             printAnimalSummary(farm);
         }while(true);
     }
@@ -145,7 +170,7 @@ public final class FarmSimulator {
         farm.removeBarn(barnName, capacity);
     }
     
-    private void menu_addAnimalToBarn(Farm farm, BufferedReader inL){
+    private void menu_addAnimalToBarn(Farm farm, BufferedReader inL) throws Exception {
         if (farm.getBarnsAmount() > 0) {
             printAllBarns(farm.getBarns());
     
@@ -174,7 +199,7 @@ public final class FarmSimulator {
             System.out.println("No barns, first add some barns!.");
         }
     }
-    private void menu_removeAnimalFromBarn(Farm farm, BufferedReader inL){
+    private void menu_removeAnimalFromBarn(Farm farm, BufferedReader inL) throws Exception {
         if (farm.getBarnsAmount() >0){
             printAllBarns(farm.getBarns());
     
@@ -246,7 +271,6 @@ public final class FarmSimulator {
                     System.out.println(youngest.remove(0).showAnimal());
                 }
             }
-        
         }
         else{
             System.out.println("Farm without barns!");
