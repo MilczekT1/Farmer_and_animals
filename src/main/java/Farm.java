@@ -80,8 +80,8 @@ final class Farm implements Serializable {
             System.out.println("There is no such barn");
         }
     }
-    public void removeBarn(String name, int capacity){
-        Barn barn= new Barn(name,capacity);
+    public void removeBarn(String name, int capacity) throws Exception{
+        Barn barn = new Barn(name,capacity);
         if (barns.contains(barn)){
             barns.remove(barn);
             barnsAmount--;
