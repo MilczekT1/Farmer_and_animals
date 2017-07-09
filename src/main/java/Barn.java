@@ -23,7 +23,7 @@ final class Barn implements Serializable {
             setCapacity(-1);
             setBarnID(-1);
             animalsInBarn = null;
-        } else{
+        } else {
             throw new IllegalArgumentException("Invalid data in Barn constructor");
         }
     }
@@ -43,62 +43,36 @@ final class Barn implements Serializable {
     public boolean isFull(){
         return animalsInBarn.size() == capacity ? true : false ;
     }
-    
-    public Animal getTheOldest(){
-        int maxAge=Integer.MIN_VALUE;
-        Animal theOldest = new Animal();
-    
-        if (animalsAmount == 0) {
-            System.out.println("Mistake! Barn is empty!");
-        }
-        else {
-            for (Animal animal : animalsInBarn) {
-                if (animal.getAgeInMonths() > maxAge) {
-                    maxAge = animal.getAgeInMonths();
-                    theOldest = animal;
-                }
-            }
-        }
-        return theOldest;
-    }
-    public Animal getTheYoungest(){
-        int minAge=Integer.MAX_VALUE;
-        Animal theYoungest = new Animal();
-        if (animalsAmount == 0) {
-            System.out.println("Mistake! Barn is empty!");
-        }
-        else {
-            for (Animal animal : animalsInBarn) {
-                if (animal.getAgeInMonths() < minAge) {
-                    minAge = animal.getAgeInMonths();
-                    theYoungest = animal;
-                }
-            }
-        }
-        return theYoungest;
-    }
-    
-    public void addAnimal(Animal animal){
+    public void addAnimal(Animal animal) throws OutOfPlaceException{
         if (isFull()){
             System.out.println("Mistake! Barn is empty!. Add animal to different barn");
+            throw new OutOfPlaceException("Mistake! Barn is empty!. Add animal to different barn");
         }
         else{
             animalsInBarn.add(animal);
             animalsAmount++;
         }
     }
-    public void addAnimals(List<Animal> listOfAnimals){
-        animalsInBarn.addAll(listOfAnimals);
-        animalsAmount += listOfAnimals.size();
+    public void addAnimals(List<Animal> listOfAnimals) throws OutOfPlaceException{
+        if (listOfAnimals != null && listOfAnimals.size()>0 &&
+                    (getCapacity() - getAnimalsAmount() >= listOfAnimals.size())) {
+            animalsInBarn.addAll(listOfAnimals);
+            animalsAmount += listOfAnimals.size();
+        } else {
+            throw new OutOfPlaceException("Not enough place for all animals");
+        }
     }
     
-    public void removeAnimal(Animal animal){
+    public void removeAnimal(Animal animal) throws Exception{
+        if (animal == null)
+            throw new IllegalArgumentException("Unable to remove null from barn");
         if (animalsInBarn.contains(animal)){
             animalsInBarn.remove(animal);
             animalsAmount--;
         }
         else{
             System.out.println("There is no such animal in this barn.");
+            throw new IllegalArgumentException("Incorrect animal object to remove");
         }
     }
     
@@ -144,4 +118,39 @@ final class Barn implements Serializable {
     public int hashCode() {
         return getName().hashCode();
     }
+    /*
+    public Animal getTheOldest(){
+        int maxAge=Integer.MIN_VALUE;
+        Animal theOldest = new Animal();
+    
+        if (animalsAmount == 0) {
+            System.out.println("Mistake! Barn is empty!");
+        }
+        else {
+            for (Animal animal : animalsInBarn) {
+                if (animal.getAgeInMonths() > maxAge) {
+                    maxAge = animal.getAgeInMonths();
+                    theOldest = animal;
+                }
+            }
+        }
+        return theOldest;
+    }
+    public Animal getTheYoungest(){
+        int minAge=Integer.MAX_VALUE;
+        Animal theYoungest = new Animal();
+        if (animalsAmount == 0) {
+            System.out.println("Mistake! Barn is empty!");
+        }
+        else {
+            for (Animal animal : animalsInBarn) {
+                if (animal.getAgeInMonths() < minAge) {
+                    minAge = animal.getAgeInMonths();
+                    theYoungest = animal;
+                }
+            }
+        }
+        return theYoungest;
+    }
+    */
 }

@@ -1,3 +1,5 @@
+import lombok.Cleanup;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -74,8 +76,11 @@ public final class FarmSimulator {
                         break;
                 }
             } catch(Exception e){
-                if (e instanceof IllegalArgumentException)
+                if (e instanceof IllegalArgumentException) {
                     System.err.println("Illegal input");
+                } else if (e instanceof OutOfPlaceException ) {
+                    System.err.println("Not enough place");
+                }
             }
             printAnimalSummary(farm);
         }while(true);
@@ -159,12 +164,12 @@ public final class FarmSimulator {
         return variable;
     }
     
-    private void menu_addBarnToFarm(Farm farm, BufferedReader inL){
+    private void menu_addBarnToFarm(Farm farm, BufferedReader inL) throws Exception{
         String barnName = getStringWithRegex(inL,"Barn name: ","\\D*\\d{0,4}");
         Integer capacity = getIntegerWithRegex(inL,"Barn capacity: ","\\d{1,}");
         farm.addBarn(new Barn(barnName, capacity));
     }
-    private void menu_removeBarnFromFarm(Farm farm, BufferedReader inL){
+    private void menu_removeBarnFromFarm(Farm farm, BufferedReader inL) throws Exception {
         String barnName = getStringWithRegex(inL,"Barn name: ","\\D*\\d{0,4}");
         Integer capacity = getIntegerWithRegex(inL,"Barn capacity: ","\\d{1,}");
         farm.removeBarn(barnName, capacity);
@@ -256,7 +261,6 @@ public final class FarmSimulator {
     }
     private void menu_show_5_YoungestAnimals(Farm farm){
         if (farm.getBarnsAmount() > 0){
-        
             ArrayList<Animal> youngest = new ArrayList<>();
         
             for (Barn barn : farm.getBarns()){
